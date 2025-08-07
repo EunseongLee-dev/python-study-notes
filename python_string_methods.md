@@ -1,0 +1,84 @@
+
+# 📘 Python 문자열(String) 관련 함수 정리
+
+## ✅ 문자열 인덱싱(index)
+- 문자열에서 특정 문자의 위치(인덱스 번호)를 찾는 메서드
+- **형식**: `문자열.index("찾을문자")`
+- **주의**: **찾는 문자가 없으면 오류** 발생!
+
+```python
+text = "Hello Python"
+print(text.index("P"))     # 출력: 6
+print(text.index("o"))     # 출력: 4 (처음 등장한 o의 위치)
+```
+
+---
+
+## 🔎 문자열 찾기(find)
+- 특정 문자가 있는지 찾고, **없을 경우 -1 반환**
+- **형식**: `문자열.find("찾을문자")`
+- **특징**: `.index()`와 달리 오류가 발생하지 않음
+
+```python
+text = "Hello Python"
+print(text.find("P"))      # 출력: 6
+print(text.find("x"))      # 출력: -1
+```
+
+---
+
+## 🔤 대소문자 변환: lower(), upper()
+
+### 📍 lower()
+- 문자열을 모두 **소문자**로 변환
+
+```python
+text = "Hello Python"
+print(text.lower())        # 출력: hello python
+```
+
+### 📍 upper()
+- 문자열을 모두 **대문자**로 변환
+
+```python
+text = "Hello Python"
+print(text.upper())        # 출력: HELLO PYTHON
+```
+
+---
+
+## ✅ 대소문자 판별: islower(), isupper()
+
+### 📍 islower()
+- 문자열이 **모두 소문자**인지 판별 → 결과는 `True` 또는 `False`
+
+```python
+text = "hello"
+print(text.islower())      # 출력: True
+```
+
+### 📍 isupper()
+- 문자열이 **모두 대문자**인지 판별
+
+```python
+text = "HELLO"
+print(text.isupper())      # 출력: True
+```
+
+---
+
+## 🔄 문자열 변경: replace()
+- 문자열 내의 특정 문자를 다른 문자로 **치환**
+- **형식**: `문자열.replace("바꿀문자", "새문자")`
+
+```python
+text = "banana"
+print(text.replace("a", "o"))   # 출력: bonono
+```
+
+---
+
+## 🧠 기타 팁
+- `.index()`와 `.find()`는 비슷하지만, 오류 여부에서 차이 있음
+- 문자열 메서드는 원본을 변경하지 않고 **새로운 문자열을 반환**
+- 실무에서는 문자열 조건 처리와 전처리에 자주 사용됨
