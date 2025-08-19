@@ -50,62 +50,95 @@
 
 ---
 
-## 5. 조건문/반복문 활용 예시
+# Python 자주 쓰는 메서드 정리 (조건문/반복문 활용 기준)
 
-### 5-1. 모음 세기 및 제거
+## 1. 문자열 관련 메서드
+
+### 1.1 isalpha()
+- 설명: 문자열이 알파벳으로만 이루어져 있는지 확인
+- 반환: True / False
+- 사용 예시:
 ```python
-text = input("문자열 입력: ")
-vowels = "aeiou"
-vowel_list = []
-vowel_count = 0
-new_text = ""
-
-for c in text:
-    if c.lower() in vowels:
-        vowel_list.append(c)
-        vowel_count += 1
-    else:
-        new_text += c
-
-print(f"모음 리스트: {vowel_list}")
-print(f"모음 개수: {vowel_count}")
-print(f"모음 제거 문자열: {new_text}")
+s = 'abc'
+print(s.isalpha())  # True
+s2 = 'abc123'
+print(s2.isalpha()) # False
 ```
 
-### 5-2. 홀수 합계
+### 1.2 isdigit()
+- 설명: 문자열이 숫자로만 이루어져 있는지 확인
+- 반환: True / False
+- 사용 예시:
 ```python
-num = int(input("숫자 입력: "))
-tot = 0
-for i in range(1, num+1):
-    if i % 2 == 1:
-        tot += i
-print(f"홀수 합계: {tot}")
+s = '123'
+print(s.isdigit())  # True
+s2 = '12a3'
+print(s2.isdigit()) # False
 ```
 
-### 5-3. 1~n까지 3과 7 제외 합계
+### 1.3 lower()
+- 설명: 문자열을 모두 소문자로 변환
+- 사용 예시:
 ```python
-num = int(input("숫자 입력: "))
-total = 0
-for i in range(1, num+1):
-    if i % 3 == 0 and i % 7 == 0:
-        continue
-    total += i
-print(total)
+s = 'Hello'
+print(s.lower())  # hello
 ```
 
-### 5-4. 랜덤 숫자 맞추기 게임
+### 1.4 upper()
+- 설명: 문자열을 모두 대문자로 변환
+- 사용 예시:
 ```python
-from random import randint
-
-target = randint(1, 100)
-while True:
-    guess = int(input("숫자를 입력하세요: "))
-    if guess == target:
-        print("정답입니다!")
-        break
-    elif guess < target:
-        print("더 큰 수를 입력하세요")
-    else:
-        print("더 작은 수를 입력하세요")
+s = 'Hello'
+print(s.upper())  # HELLO
 ```
 
+### 1.5 in
+- 설명: 문자열 안에 특정 문자가 있는지 확인
+- 반환: True / False
+- 사용 예시:
+```python
+s = 'apple'
+print('a' in s)  # True
+print('b' in s)  # False
+```
+
+## 2. 리스트 관련 메서드
+
+### 2.1 append()
+- 설명: 리스트 끝에 값 추가
+- 사용 예시:
+```python
+lst = [1, 2]
+lst.append(3)
+print(lst)  # [1, 2, 3]
+```
+- 주의: 괄호 안에 추가할 값을 넣어야 함. 빈 괄호는 오류 발생.
+
+### 2.2 sort()
+- 설명: 리스트를 오름차순으로 정렬
+- 사용 예시:
+```python
+lst = [3, 1, 2]
+lst.sort()
+print(lst)  # [1, 2, 3]
+```
+- 내림차순: `lst.sort(reverse=True)`
+
+### 2.3 reverse()
+- 설명: 리스트 순서를 역순으로 변경
+- 사용 예시:
+```python
+lst = [1, 2, 3]
+lst.reverse()
+print(lst)  # [3, 2, 1]
+```
+
+### 2.4 len()
+- 설명: 리스트 또는 문자열 길이 반환
+- 사용 예시:
+```python
+lst = [1, 2, 3]
+print(len(lst))  # 3
+s = 'abc'
+print(len(s))    # 3
+```
