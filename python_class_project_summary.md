@@ -1,0 +1,86 @@
+# Python 클래스 연습 최종 정리
+
+## 오늘 학습 요약
+- **super() 오버라이딩** 활용
+- **isinstance()**로 단일/리스트 구분 처리
+- **skill_damage** 옵션을 통한 추가 공격력 적용
+- 리스트를 활용한 다중 타겟 공격 처리
+
+## 최종 코드 예시
+```python
+class Unit():
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+
+    def show_status(self):
+        current_hp = max(self.hp, 0)
+        if hasattr(self, 'shield') and self.shield > 0:
+            print(f"{self.name} : 체력[{current_hp}] 쉴드[{self.shield}]")
+        else:
+            print(f"{self.name} : 체력[{current_hp}]")
+
+class AttackUnit(Unit):
+    def __init__(self, name, hp, damage):
+        super().__init__(name, hp)
+        self.damage = damage
+
+class Flyable():
+    def __init__(self, flying_speed):
+        self.flying_speed = flying_speed
+
+    def fly(self, location):
+        print(f"{self.name} : {location} 방향으로 날아갑니다.")
+
+class ShieldMixin():
+    def __init__(self, shield):
+        self.shield = shield
+
+    def take_damage(self, damage):
+        if self.shield > 0:
+            self.shield -= damage
+            if self.shield < 0:
+                self.hp += self.shield
+                self.shield = 0
+        else:
+            self.hp -= damage
+        if self.hp <= 0:
+            print(f"{self.name} 유닛 파괴!")
+
+class HybridUnit(AttackUnit, Flyable, ShieldMixin):
+    def __init__(self, name, hp, damage, flying_speed, shield):
+        AttackUnit.__init__(self, name, hp, damage)
+        Flyable.__init__(self, flying_speed)
+        ShieldMixin.__init__(self, shield)
+
+    def move(self, location):
+        if self.flying_speed > 0:
+            self.fly(location)
+        else:
+            print(f"{self.name} 유닛 이 이동합니다.")
+
+    def attack(self, target=None, skill_damage=0):
+        if target is None:
+            return
+        if not isinstance(target, list):
+            target = [target]
+        for t in target:
+            t.take_damage(self.damage + skill_damage)
+            print(f"{self.name} 유닛 이 {t.name} 을 공격합니다. [피해량: {self.damage + skill_damage}]")
+            print("하이브리드 유닛 특수 공격!")
+
+# 유닛 생성 및 테스트
+br1 = HybridUnit("발키리", 150, 10, 5, 30)
+ma1 = HybridUnit("마린", 60, 6, 0, 5)
+ma2 = HybridUnit("마린2", 50, 6, 0, 5)
+
+br1.move("5시")
+ma1.move("5시")
+ma2.move("5시")
+
+br1.attack([ma1, ma2], skill_damage=5)
+
+ma1.show_status()
+ma2.show_status()
+br1.show_status()
+```
